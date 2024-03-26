@@ -1,9 +1,9 @@
-- name: Publish commit hash to mqtt broker
-  uses: juhrlass/mqtt-action@master
-  with:
-    protocol: mqtt
-    host: broker.hivemq.com
-    port: 1883
-    topic: "mqtt-github-action/tank_monitor"
-    message: ${{ github.sha }}
-    username: 'mqtt'
+name: Publish commit hash to mqtt broker
+uses: juhrlass/mqtt-action@master
+with:
+  protocol: mqtt
+  host: broker.hivemq.com
+  port: 1883
+  topic: "mqtt-github-action/tank_monitor"
+  message: ${{ github.sha }}
+  username: 'mqtt'
