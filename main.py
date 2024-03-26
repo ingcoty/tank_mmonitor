@@ -6,6 +6,7 @@ import network
 import machine
 
 BROKER="18.185.170.141"
+REPOSITORY = "https://github.com/ingcoty/tank_mmonitor.git"
 
 
 def connect_wifi():
@@ -22,10 +23,11 @@ def connect_wifi():
 
 def process_message(topic, msg):
     print("actualizando firmware")
-    print(msg)
-
+    ota = OTA_Wrapper(github_url=REPOSITORY)
 
 connect_wifi()
+
+process_message("","")
 
 client_id = "ESP32_TankMonitor"
 mqtt_client = MQTTClient(client_id, BROKER)
@@ -38,7 +40,5 @@ while True:
     print("waiting for a github push...")
     sleep(5)
 
-
-#ota = OTA_Wrapper(github_url="https://github.com/ingcoty/tank_mmonitor.git")
 
 
