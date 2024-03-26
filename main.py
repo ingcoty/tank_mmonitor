@@ -2,11 +2,15 @@ from OTA_Wrapper import OTA_Wrapper
 from wifi_config import SSID, PASSWORD
 from time import sleep
 from umqtt.simple import MQTTClient
+from sr04t import Srt04t
 import network
 import machine
 
+
 BROKER="18.185.170.141"
 REPOSITORY = "https://github.com/ingcoty/tank_mmonitor.git"
+
+level_sensor = Srt04t(triger_pin=13, echo_pin=12)
 
 def connect_wifi():
     """ Connect to Wi-Fi."""
@@ -36,7 +40,8 @@ mqtt_client.subscribe("mqtt-github-action/tank_monitor")
 
 while True:
     mqtt_client.check_msg()
-    print("waiting for a github push...")
+    level = level_sensor.read_distance()
+    print(level)
     sleep(5)
 
 
