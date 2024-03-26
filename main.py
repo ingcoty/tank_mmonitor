@@ -21,6 +21,7 @@ def connect_wifi():
 
 
 def process_message(topic, msg):
+    print("actualizando firmware")
     print(msg)
 
 
