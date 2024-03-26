@@ -31,14 +31,16 @@ class OTA_Updater:
             
     def process_version_url(self, repo_url, filename):
         """ Convert the file's url to its assoicatied version based on Github's oid management."""
-
+        
+        print(repo_url)
         # Necessary URL manipulations
         version_url = repo_url.replace("raw.githubusercontent.com", "github.com")  # Change the domain
         version_url = version_url.replace("/", "§", 4)                             # Temporary change for upcoming replace
         version_url = version_url.replace("/", "/latest-commit/", 1)                # Replacing for latest commit
         version_url = version_url.replace("§", "/", 4)                             # Rollback Temporary change
         version_url = version_url + filename                                       # Add the targeted filename
-        
+        print(version_url)
+
         return version_url
 
     def connect_wifi(self):
@@ -106,12 +108,13 @@ class OTA_Updater:
         """ Check if updates are available."""
         
         # Connect to Wi-Fi
-        self.connect_wifi()
+        # self.connect_wifi()
 
         print('Checking for latest version...')
         headers = {"accept": "application/json"} 
+        print(self.version_url)
         response = urequests.get(self.version_url, headers=headers)
-        
+        print(response)
         data = json.loads(response.text)
        
         self.latest_version = data['oid']                   # Access directly the id managed by GitHub
