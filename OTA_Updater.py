@@ -31,8 +31,7 @@ class OTA_Updater:
             
     def process_version_url(self, repo_url, filename):
         """ Convert the file's url to its assoicatied version based on Github's oid management."""
-        
-        print(repo_url)
+
         # Necessary URL manipulations
         version_url = repo_url.replace("raw.githubusercontent.com", "github.com")  # Change the domain
         version_url = version_url.replace("/", "§", 4)                             # Temporary change for upcoming replace
@@ -40,7 +39,6 @@ class OTA_Updater:
         version_url = version_url.replace("§", "/", 4)                             # Rollback Temporary change
         version_url = version_url + filename                                       # Add the targeted filename
         print(version_url)
-
         return version_url
 
     def connect_wifi(self):
@@ -61,7 +59,7 @@ class OTA_Updater:
         # Fetch the latest code from the repo.
         response = urequests.get(self.firmware_url)
         if response.status_code == 200:
-            print(f'Fetched latest firmware code, status: {response.status_code}, -  {response.text}')
+            print(f'Fetched latest firmware code, status: {response.status_code}')
     
             # Save the fetched code to memory
             self.latest_code = response.text
@@ -70,6 +68,7 @@ class OTA_Updater:
         elif response.status_code == 404:
             print('Firmware not found.')
             return False
+        return False
 
     def update_no_reset(self):
         """ Update the code without resetting the device."""
@@ -112,11 +111,8 @@ class OTA_Updater:
 
         print('Checking for latest version...')
         headers = {"accept": "application/json"} 
-        print(self.version_url)
         response = urequests.get(self.version_url, headers=headers)
-        print(response)
         data = json.loads(response.text)
-       
         self.latest_version = data['oid']                   # Access directly the id managed by GitHub
         print(f'latest version is: {self.latest_version}')
         
@@ -131,6 +127,6 @@ class OTA_Updater:
         if self.check_for_updates():
             if self.fetch_latest_code():
                 self.update_no_reset()
-                self.update_and_reset()
+                #self.update_and_reset()
         else:
             print('No new updates available.')

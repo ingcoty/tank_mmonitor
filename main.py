@@ -1,15 +1,12 @@
 from OTA_Wrapper import OTA_Wrapper
 from wifi_config import SSID, PASSWORD
 from time import sleep
-#from umqtt.simple import MQTTClient
-#import network
-#import machine
+from umqtt.simple import MQTTClient
+import network
+import machine
 
 BROKER="18.185.170.141"
 REPOSITORY = "https://github.com/ingcoty/tank_mmonitor.git"
-
-OTA_Wrapper(github_url=REPOSITORY)
-exit()
 
 def connect_wifi():
     """ Connect to Wi-Fi."""
