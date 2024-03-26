@@ -1,11 +1,11 @@
 from OTA_Wrapper import OTA_Wrapper
 from wifi_config import SSID, PASSWORD
 from time import sleep
-from umqttsimple import MQTTClient
+from umqtt.simple import MQTTClient
 import network
 import machine
 
-BROKER="broker.hivemq.com"
+BROKER="18.185.170.141"
 
 
 def connect_wifi():
@@ -33,6 +33,7 @@ mqtt_client.connect()
 mqtt_client.subscribe("mqtt-github-action/tank_monitor")
 
 while True:
+    mqtt_client.check_msg()
     print("waiting for a github push...")
     sleep(5)
 
