@@ -34,8 +34,6 @@ connect_wifi()
 
 #process_message("","")
 
-#add this comment to update github.
-
 client_id = "ESP32_TankMonitor"
 mqtt_client = MQTTClient(client_id, BROKER)
 mqtt_client.set_callback(process_message)
