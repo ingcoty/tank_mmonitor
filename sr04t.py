@@ -6,7 +6,7 @@ class Srt04t:
 
     def __init__(self, triger_pin:int, echo_pin:int):
         self.triger = Pin(triger_pin, Pin.OUT)
-        self.echo = Pin(echo_pin, Pin.OUT)
+        self.echo = Pin(echo_pin, Pin.IN)
 
 
     def read_distance(self) -> int:

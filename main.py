@@ -1,16 +1,18 @@
 from OTA_Wrapper import OTA_Wrapper
 from wifi_config import SSID, PASSWORD
 from time import sleep
+from Display import Display
 from umqtt.simple import MQTTClient
-from sr04t import Srt04t
 import network
 import machine
-
+import time
+from sr04t import Srt04t
 
 BROKER="18.185.170.141"
 REPOSITORY = "https://github.com/ingcoty/tank_mmonitor.git"
 
-level_sensor = Srt04t(triger_pin=13, echo_pin=12)
+level_sensor = Srt04t(triger_pin=25, echo_pin=4)
+display = Display()
 
 def connect_wifi():
     """ Connect to Wi-Fi."""
@@ -30,7 +32,7 @@ def process_message(topic, msg):
 
 connect_wifi()
 
-process_message("","")
+#process_message("","")
 
 client_id = "ESP32_TankMonitor"
 mqtt_client = MQTTClient(client_id, BROKER)
@@ -41,7 +43,7 @@ mqtt_client.subscribe("mqtt-github-action/tank_monitor")
 while True:
     mqtt_client.check_msg()
     level = level_sensor.read_distance()
-    print(level)
+    display.text(f"Tank: {level} %")
     sleep(5)
 
 
