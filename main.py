@@ -45,6 +45,7 @@ mqtt_client.subscribe("mqtt-github-action/tank_monitor")
 while True:
     mqtt_client.check_msg()
     level = level_sensor.read_distance()
+    print(level)
     display.text(f"Tank: {level} %")
     sleep(5)
 
